@@ -1,0 +1,105 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--color-dark-blue), #2a3a57);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+}
+
+.formCard {
+  background: var(--color-white);
+  border-radius: 1.5rem;
+  padding: var(--spacing-2xl);
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(26, 42, 71, 0.3);
+}
+
+.formCard h2 {
+  color: var(--color-dark-blue);
+  margin-bottom: var(--spacing-md);
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xl);
+  font-size: 0.95rem;
+}
+
+.successCard {
+  background: var(--color-white);
+  border-radius: 1.5rem;
+  padding: var(--spacing-2xl);
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(233, 92, 82, 0.2);
+  border: 2px solid var(--color-coral-red);
+  margin-top: var(--spacing-xl);
+}
+
+.successHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.successIcon {
+  font-size: 2.5rem;
+}
+
+.successHeader h3 {
+  margin: 0;
+  color: var(--color-coral-red);
+}
+
+.codeSection {
+  background: var(--color-light-gray);
+  padding: var(--spacing-lg);
+  border-radius: 1rem;
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.codeSection label {
+  display: block;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+  font-weight: 500;
+}
+
+.codeDisplay {
+  font-family: 'Courier New', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-coral-red);
+  letter-spacing: 0.2em;
+  word-break: break-all;
+  padding: var(--spacing-md);
+  background: var(--color-white);
+  border-radius: 0.5rem;
+  border: 2px solid var(--color-coral-red);
+  margin-bottom: var(--spacing-md);
+}
+
+.sessionId {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-md);
+  }
+
+  .formCard,
+  .successCard {
+    padding: var(--spacing-xl);
+  }
+
+  .codeDisplay {
+    font-size: 1.5rem;
+  }
+}

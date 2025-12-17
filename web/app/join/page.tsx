@@ -14,6 +14,8 @@ export default function JoinPage() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [user, setUser] = useState<any>(null);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [finalScore, setFinalScore] = useState<number | null>(null);
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:4000";
 
@@ -53,7 +55,17 @@ export default function JoinPage() {
       selectedIndex: idx,
       timeTakenMs: 1000
     });
-    setCurrentIdx(i => Math.min(i + 1, questions.length - 1));
+    setSelectedOption(idx);
+  }
+
+  function handleNext() {
+    if (currentIdx === questions.length - 1) {
+      // Last question reached, show final score
+      setFinalScore(leaderboard.find(row => row.userId === user?.userId)?.score || 0);
+    } else {
+      setCurrentIdx(i => Math.min(i + 1, questions.length - 1));
+      setSelectedOption(null);
+    }
   }
 
   return (
@@ -116,6 +128,18 @@ export default function JoinPage() {
             </div>
           ) : (
             <div className={styles.quizContent}>
+              {finalScore !== null ? (
+                <div className={styles.scoreCard}>
+                  <h2>Quiz Completed! 🎉</h2>
+                  <div className={styles.finalScore}>
+                    <p className={styles.scoreLabel}>Your Final Score</p>
+                    <p className={styles.scoreValue}>{finalScore}/{questions.length}</p>
+                  </div>
+                  <p className={styles.scorePercentage}>
+                    {Math.round((finalScore / questions.length) * 100)}% Correct
+                  </p>
+                </div>
+              ) : (
               <div className={styles.questionCard}>
                 <div className={styles.progressBar}>
                   <div 
@@ -136,8 +160,9 @@ export default function JoinPage() {
                   {questions[currentIdx].options.map((opt: string, idx: number) => (
                     <button 
                       key={idx} 
-                      className={styles.optionBtn}
+                      className={`${styles.optionBtn} ${selectedOption === idx ? styles.selected : ''}`}
                       onClick={() => submitAnswer(idx)}
+                      disabled={selectedOption !== null}
                     >
                       <span className={styles.optionLabel}>
                         {String.fromCharCode(65 + idx)}
@@ -146,7 +171,14 @@ export default function JoinPage() {
                     </button>
                   ))}
                 </div>
+
+                {selectedOption !== null && (
+                  <button className={styles.nextBtn} onClick={handleNext}>
+                    {currentIdx === questions.length - 1 ? 'Submit Quiz' : 'Next →'}
+                  </button>
+                )}
               </div>
+              )}
 
               <div className={styles.leaderboardCard}>
                 <h4>🏆 Leaderboard</h4>

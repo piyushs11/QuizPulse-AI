@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import { prisma } from "../db.js";
 import { generateQuiz } from "../openai.js";
@@ -38,9 +37,7 @@ export function attachSocket(io) {
           }
         });
         // Update score
-        const base = isCorrect ? 10 : 0;
-        const speedBonus = isCorrect ? Math.max(0, 5 - Math.floor((timeTakenMs || 0) / 1000)) : 0;
-        const delta = base + speedBonus;
+        const delta = isCorrect ? 10 : 0;
 
         await prisma.score.upsert({
           where: { sessionId_userId: { sessionId, userId } },
@@ -173,6 +170,12 @@ router.post("/join", async (req, res) => {
       create: { name: name || "Player", email: email || `${crypto.randomUUID()}@guest.local` },
       update: { name: name || "Player" }
     });
+
+    if (!user) {
+      console.error("User upsert returned null", { name, email });
+      return res.status(500).json({ error: "user_upsert_failed" });
+    }
+
     res.json({ userId: user.id, name: user.name });
   } catch (e) {
     console.error(e);

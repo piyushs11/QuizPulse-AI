@@ -37,10 +37,16 @@
 }
 
 html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
   font-family: var(--font-sans);
   color: var(--color-text-primary);
-  background-color: var(--color-white);
-  line-height: 1.6;
+}
+
+/* App-level background */
+body {
+  background: linear-gradient(135deg, var(--color-dark-blue), #2a3a57);
 }
 
 /* Typography */
@@ -100,6 +106,13 @@ p {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(233, 92, 82, 0.4);
 }
+
+.btn-white-hover:hover {
+  background: #FAF3F3;
+  color: var(--color-coral-red);
+  border: 2px solid var(--color-coral-red);
+}
+
 
 .btn-primary:active {
   transform: translateY(0);

@@ -26,7 +26,7 @@ export default function CreatePage() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ justifyContent: 'space-around' }}>
       <div className={styles.formCard}>
         <h2>Create Your Quiz</h2>
         <p className={styles.subtitle}>Let AI generate engaging questions based on your topic</p>

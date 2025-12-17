@@ -13,7 +13,7 @@ export default function Home() {
         </p>
         
         <div className={styles.heroButtons}>
-          <Link href="/create" className="btn btn-primary btn-lg">
+          <Link href="/create" className="btn btn-primary btn-lg btn-white-hover">
             <span>✨</span> Create a Quiz
           </Link>
           <Link href="/join" className="btn btn-secondary btn-lg">

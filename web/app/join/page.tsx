@@ -133,10 +133,10 @@ export default function JoinPage() {
                   <h2>Quiz Completed! 🎉</h2>
                   <div className={styles.finalScore}>
                     <p className={styles.scoreLabel}>Your Final Score</p>
-                    <p className={styles.scoreValue}>{finalScore}/{questions.length}</p>
+                    <p className={styles.scoreValue}>{finalScore}/100</p>
                   </div>
                   <p className={styles.scorePercentage}>
-                    {Math.round((finalScore / questions.length) * 100)}% Correct
+                    {finalScore}% Correct
                   </p>
                 </div>
               ) : (

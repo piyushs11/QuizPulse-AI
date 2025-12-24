@@ -10,11 +10,13 @@ import { router as quizRouter, attachSocket } from "./routes/quiz.js";
 
 dotenv.config();
 
+const corsOrigins = process.env.CLIENT_ORIGIN?.split(",").map(origin => origin.trim()) || ["http://localhost:3000"];
+
 const app = express();
 app.use(express.json({ limit: "1mb" }));
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN?.split(",") || ["http://localhost:3000"],
+  origin: corsOrigins,
   credentials: true
 }));
 
@@ -24,7 +26,7 @@ app.get("/health", (_, res) => res.json({ ok: true }));
 // HTTP server + WebSocket
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
-  cors: { origin: process.env.CLIENT_ORIGIN?.split(",") || ["http://localhost:3000"] }
+  cors: { origin: corsOrigins }
 });
 attachSocket(io);
 

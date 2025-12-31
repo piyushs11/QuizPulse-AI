@@ -16,7 +16,6 @@ export default function JoinPage() {
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [finalScore, setFinalScore] = useState<number | null>(null);
-  const [socket, setSocket] = useState<any>(null);
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:4000";
 
@@ -31,7 +30,6 @@ export default function JoinPage() {
       setCurrentIdx(0);
     });
     s.on("leaderboardUpdate", (lb: any) => setLeaderboard(lb));
-    setSocket(s);  // Store socket in state
     return s;
   }
 
@@ -48,8 +46,8 @@ export default function JoinPage() {
   }
 
   async function submitAnswer(idx: number) {
-    if (!socket) return;  // Use stored socket
-    socket.emit("answer", {
+    const s = io(server);
+    s.emit("answer", {
       joinCode,
       sessionId,
       userId: user?.userId,
